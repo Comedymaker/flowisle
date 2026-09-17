@@ -38,5 +38,6 @@ PLIST
 codesign --force --deep --sign "${DEVELOPER_ID_APP:--}" "$APP"
 "$APP/Contents/MacOS/WorkIsland" --self-test
 codesign --verify --deep --strict "$APP"
-lipo -verify_arch arm64 x86_64 "$APP/Contents/MacOS/WorkIsland"
+lipo -verify_arch arm64 "$APP/Contents/MacOS/WorkIsland"
+lipo -verify_arch x86_64 "$APP/Contents/MacOS/WorkIsland"
 echo "Built: $APP"
