@@ -1,0 +1,6 @@
+.DS_Store
+dist/
+*.xcuserstate
+*.log
+state.json
+state-v*-backup-*.json
