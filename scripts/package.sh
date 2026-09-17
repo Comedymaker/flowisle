@@ -2,7 +2,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST="$ROOT/dist"
-VERSION="1.7.1"
+VERSION="1.7.2"
 mkdir -p "$DIST"
 bash "$ROOT/build.sh" "$DIST/FlowIsle.app"
 STAGING="$(mktemp -d)"

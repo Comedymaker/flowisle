@@ -28,8 +28,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleName</key><string>FlowIsle</string>
 <key>CFBundleDisplayName</key><string>FlowIsle</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>1.7.1</string>
-<key>CFBundleVersion</key><string>23</string>
+<key>CFBundleShortVersionString</key><string>1.7.2</string>
+<key>CFBundleVersion</key><string>24</string>
 <key>LSMinimumSystemVersion</key><string>13.0</string>
 <key>LSUIElement</key><true/>
 <key>NSHighResolutionCapable</key><true/>
@@ -38,6 +38,9 @@ PLIST
 codesign --force --deep --sign "${DEVELOPER_ID_APP:--}" "$APP"
 "$APP/Contents/MacOS/WorkIsland" --self-test
 codesign --verify --deep --strict "$APP"
-lipo -verify_arch arm64 "$APP/Contents/MacOS/WorkIsland"
-lipo -verify_arch x86_64 "$APP/Contents/MacOS/WorkIsland"
+BUILT_ARCHS="$(lipo -archs "$APP/Contents/MacOS/WorkIsland")"
+[[ " $BUILT_ARCHS " == *" arm64 "* && " $BUILT_ARCHS " == *" x86_64 "* ]] || {
+    echo "Expected arm64 and x86_64, found: $BUILT_ARCHS" >&2
+    exit 1
+}
 echo "Built: $APP"
